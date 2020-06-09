@@ -1,6 +1,5 @@
 <?php
 require_once "../class.php";
-session_start();
 
   if ($_SESSION['role']!='3'){
         header('HTTP/1.0 403 Forbidden');
