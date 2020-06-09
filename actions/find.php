@@ -1,6 +1,5 @@
 <?php 
 require_once "../class.php"; 
-session_start();
 
 $link = mysqli_connect('localhost', 'root' , '','lab');
 
@@ -16,17 +15,9 @@ if ($_SESSION['role']!='3'&&$_SESSION['role']!='2'||empty($_SESSION['role'])){
 </head>
 <body>
 <p align="center"><table border = '1'>
-    <tr >
-        <td > id</td >
-        <td > Name</td >
-        <td > Surname</td >
-        <td > Login</td >
-        <td > Language</td >
-        <td > Role</td >
-    </tr >
 
 <?php
-    $link = mysqli_connect('localhost', 'root' , '','lab');
+    include 'dop/table.html';
 
 $id=$_POST['id'];
 $sql = mysqli_query($link, "SELECT `id`, `name`, `surname`,`login`,`lang`,`role` FROM `users` WHERE `id`='" . mysqli_real_escape_string($link, $id) . "';");
