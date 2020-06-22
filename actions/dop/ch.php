@@ -1,8 +1,10 @@
 <?php
 $link = mysqli_connect('localhost', 'root' , '','lab');
  
-$id=$_GET['id'];  
-$sql = mysqli_query($link, "UPDATE `users` SET `name` = '{$_POST['name']}',`surname` = '{$_POST['surname']}',`login` = '{$_POST['login']}', `password` = '{$_POST['password']}',`lang` = '{$_POST['lang']}',`role` = '{$_POST['role']}' WHERE `id`='" . mysqli_real_escape_string($link, $id) . "';");
+$stmt = mysqli_prepare($link, "UPDATE `users` SET `name` = ?,`surname` = ?,`login` = ?, `password` = ?,`lang` = ?,`role` = ? WHERE `id` = ?");
+mysqli_stmt_bind_param($stmt, "sssssii", $_POST['name'], $_POST['surname'], $_POST['login'], $_POST['password'], $_POST['lang'], $_POST['role'], $_GET['id']);
+
+mysqli_stmt_execute($stmt);
 
 header("Location:../list.php");
 ?>
