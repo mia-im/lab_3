@@ -13,10 +13,14 @@ if ($_SESSION['role']!='3'&&$_SESSION['role']!='2'||empty($_SESSION['role'])){
     <title>Users List</title>
 </head>
 <body>
+    <form name="find" method="post" action="find.php"><p align="center">
+    <button><?php echo lang::trans('Find'); ?></button>
+    <input type = "text" name = "id" value="id" style="width: 50px"> 
+</form>
 <p align="center"><table border = '1'>
 
 <?php
-    include 'dop/table.html';
+include 'dop/table.html';
 if ($_SESSION['delete']=='yes') {
     echo lang::trans('User').' '.$_SESSION['id_'].' '.lang::trans('successfully deleted').'<br/>';
     $_SESSION['delete']='';
@@ -27,11 +31,7 @@ if ($_SESSION['delete']=='yes') {
    ?>
 
 </table>
-<p align="center"><input type="button" value="<?php echo lang::trans('Add new user'); ?>" onclick="location.href='registration.php'">
-<form name="find" method="post" action="find.php"><p align="center">
-    <button><?php echo lang::trans('Find'); ?></button>
-    <input type = "text" name = "id" value="id" style="width: 50px"> 
-</form>
-<p align="center"><input type="button" value="<?php echo lang::trans('Back'); ?>" onclick="location.href='../users/<?php echo strtolower($_SESSION['role']).".php"; ?>'">
+<p align="center"><a href="registration.php" > <?php echo lang::trans('Add new user'); ?></a>
+<p align="center"><a href="../users/<?php echo strtolower($_SESSION['role']).".php"; ?>" > <?php echo lang::trans('Back'); ?></a>
 </body>
 </html>
