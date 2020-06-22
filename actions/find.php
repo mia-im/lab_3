@@ -17,11 +17,15 @@ if ($_SESSION['role']!='3'&&$_SESSION['role']!='2'||empty($_SESSION['role'])){
 <p align="center"><table border = '1'>
 
 <?php
-    include 'dop/table.html';
+include 'dop/table.html';
 
-$id=$_POST['id'];
-$sql = mysqli_query($link, "SELECT `id`, `name`, `surname`,`login`,`lang`,`role` FROM `users` WHERE `id`='" . mysqli_real_escape_string($link, $id) . "';");
-      include 'dop/table.php';
+$stmt = mysqli_prepare($link, "SELECT `id`, `name`, `surname`,`login`,`lang`,`role` FROM `users` WHERE `id` = ?");
+mysqli_stmt_bind_param($stmt, "i", $_POST['id']);
+
+mysqli_stmt_execute($stmt);
+$sql = mysqli_stmt_get_result($stmt);
+
+include 'dop/table.php';
 ?>
 
 </table>
