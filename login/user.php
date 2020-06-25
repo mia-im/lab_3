@@ -3,11 +3,12 @@ session_start();
     
 $link = mysqli_connect('localhost', 'root' , '','lab');
 
-$login = $_POST["login"];
-$password = $_POST["password"];
+$stmt = mysqli_prepare($link, "SELECT * FROM `users` WHERE `login` = ? AND `password` = ?");
+mysqli_stmt_bind_param($stmt, "ss", $_POST["login"], $_POST["password"]);
+mysqli_stmt_execute($stmt);
+$sql = mysqli_stmt_get_result($stmt);
 
-$result = mysqli_query($link, "SELECT * FROM `users` WHERE `login` = '$login' AND `password` = '$password' ");
-$user = mysqli_fetch_assoc($result);
+$user = mysqli_fetch_assoc($sql);
 
 $_SESSION = [
     "id" => $user['id'],
